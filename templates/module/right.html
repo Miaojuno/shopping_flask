@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../../static/css/csslider.default.css" />
+<style>
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	ul, ol {
+		padding-left: 40px;
+	}
+
+
+	h1 {
+		font-weight: 700;
+		font-size: 310%;
+	}
+
+	h2 {
+		font-weight: 400;
+		font-size: 120%;
+		color: #71AD37;
+	}
+
+	#slider1 {
+		margin: 20px;
+		font-family: 'Lato';
+	}
+
+		#slider1 > ul > li:nth-of-type(3) {
+
+		}
+
+		#slider1 > input:nth-of-type(3):checked ~ ul #bg {
+			width: 80%;
+			padding: 22px;
+			-moz-transition: .5s .5s;
+			-o-transition: .5s .5s;
+			-webkit-transition: .5s .5s;
+			transition: .5s .5s;
+		}
+
+			#slider1 > input:nth-of-type(3):checked ~ ul #bg div {
+				-moz-transform: translate(0);
+				-ms-transform: translate(0);
+				-o-transform: translate(0);
+				-webkit-transform: translate(0);
+				transform: translate(0);
+				-moz-transition: .5s .9s;
+				-o-transition: .5s .9s;
+				-webkit-transition: .5s .9s;
+				transition: .5s .9s;
+			}
+
+
+	.scrollable p {
+		padding: 30px;
+		text-align: justify;
+		line-height: 140%;
+		font-size: 120%;
+	}
+</style>
+</head>
+<body>
+
+<div style="padding: 1em 0; position: fixed; margin-left: 85%;  margin-top: 0% ">
+    <p style="margin-left: 12%;">热门推荐</p>
+	<div id="slider1" class="csslider">
+		<input type="radio" name="slides" id="slides_1" />
+		<input type="radio" name="slides" id="slides_2" checked />
+		<input type="radio" name="slides" id="slides_3" />
+		<input type="radio" name="slides" id="slides_4" />
+		<ul>
+			<li>
+				<img src="http://images.amazon.com/images/P/0971880107.01.LZZZZZZZ.jpg" />
+			</li>
+			<li>
+				<img src="http://images.amazon.com/images/P/0316666343.01.LZZZZZZZ.jpg" />
+			</li>
+			<li>
+				<img src="http://images.amazon.com/images/P/0385504209.01.LZZZZZZZ.jpg" />
+			</li>
+			<li>
+				<img src="http://images.amazon.com/images/P/0060928336.01.LZZZZZZZ.jpg" />
+			</li>
+		</ul>
+		<div class="arrows">
+			<label for="slides_1"></label>
+			<label for="slides_2"></label>
+			<label for="slides_3"></label>
+			<label for="slides_4"></label>
+		</div>
+		<div class="navigation">
+			<div>
+				<label for="slides_1"></label>
+				<label for="slides_2"></label>
+				<label for="slides_3"></label>
+				<label for="slides_4"></label>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

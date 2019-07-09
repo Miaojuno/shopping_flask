@@ -1,0 +1,75 @@
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+
+</head>
+<body>
+
+    <div id="myhead">
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="/index">
+                        <img src="../../static/pic/首页.png" style="width: 15px;height: 15px;"/>
+                        &nbsp;首页
+                    </a>
+                </li>
+                <li>
+                    <a href="/myeva">
+                        <img src="../../static/pic/我的.png" style="width: 15px;height: 15px;"/>
+                        &nbsp;我的评价
+                    </a>
+                </li>
+    {#            <li><a href="">密码修改</a></li>#}
+                <li>
+                    <a href="/">
+                        <img src="../../static/pic/注销.png" style="width: 15px;height: 15px;"/>
+                        &nbsp;注销
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="finddiv">
+            <input v-model="inputtext" type="text">
+            <button @click="gofind()">搜索</button>
+        </div>
+        <br><br><br>
+
+        <div @click="returnTop()">
+            <img id="btnTop" src="../../static/pic/向上2.png"/>
+        </div>
+    </div>
+
+<script>
+    var timer;
+    function runToTop(){
+        var top=document.body.scrollTop||document.documentElement.scrollTop;
+        document.body.scrollTop=top-top/5;
+        document.documentElement.scrollTop=top-top/5;
+        if(top<=0){
+            clearInterval(timer);
+        }
+   }
+
+    new Vue({
+        el:"#myhead",
+        data:{
+            inputtext:'',
+        },
+        methods:{
+            returnTop:function() {
+                timer=setInterval("runToTop()",20);
+            },
+            gofind:function () {
+                window.location.href="/searchresult?inputtext="+this.inputtext;
+            }
+        }
+    })
+</script>
+
+</body>

@@ -1,0 +1,169 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图书详情</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="../../static/css/include.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/detail.css" media="screen" type="text/css" />
+
+</head>
+
+
+<body style="background-color: #dce7ee">
+
+
+<div style="z-index:999999;">
+    {% include 'module/head.html' %}
+    {% include 'module/left.html' %}
+    {% include 'module/right.html' %}
+</div>
+
+<div id="detail_root" class="wrap">
+{#    <img id="back" @click="goback()" src="../static/pic/返回.png" />#}
+    <div class="prosum_box">
+        <dl class="prosum_left">
+            <img alt="" class="big_img" :src="book[7]">
+        </dl>
+        <div class="prosum_right">
+            <textarea rows="3"  class="pros_title" v-html="book[1]" style="border:none; width: 100%" readonly></textarea>
+            <div class="pros_other">
+                <p>经营商家  ：亚猫逊🐱</p>
+                <p>作者 ： <span2 v-html="book[2]"></span2></p>
+                <p>出版年份 ： <span2 v-html="book[3]"></span2></p>
+                <p>出版社 ： <span2 v-html="book[4]"></span2></p>
+            </div>
+{#        <dl class="prosum_left">#}
+{#            <img alt="" class="big_img" :src="book.img">#}
+{#        </dl>#}
+{#        <div class="prosum_right">#}
+{#            <textarea rows="3"  class="pros_title" v-html="book.title" style="border:none; width: 100%" readonly></textarea>#}
+{#            <div class="pros_other">#}
+{#                <p>经营商家  ：亚猫逊🐱</p>#}
+{#                <p>作者 ： <span2 v-html="book.author"></span2></p>#}
+{#                <p>出版年份 ： <span2 v-html="book.year"></span2></p>#}
+{#                <p>出版社 ： <span2 v-html="book.publisher"></span2></p>#}
+{#            </div>#}
+            <div class="pros_price">
+                <p style="font-size: 0.9em;">为它打分:</p>
+                <img id="p1" @click="eva(1)" :src="s2" />
+                <img id="p2" @click="eva(2)" :src="s2" />
+                <img id="p3" @click="eva(3)" :src="s2" />
+                <img id="p4" @click="eva(4)" :src="s2" />
+                <img id="p5" @click="eva(5)" :src="s2" />
+                <img id="p6" @click="eva(6)" :src="s2" />
+                <img id="p7" @click="eva(7)" :src="s2" />
+                <img id="p8" @click="eva(8)" :src="s2" />
+                <img id="p9" @click="eva(9)" :src="s2" />
+                <img id="p10" @click="eva(10)" :src="s2" />
+                <span v-html="score"></span>
+                <br>
+                <br>
+                <button @click="addeva()"><span>确认评分</span></button>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:15%; margin-right:15%;">
+        <h4 style="margin-left: 4%; ">看过它的也看过</h4>
+        <div v-for="(item,index) of books" class="book_class" >
+            <img :src="item.img" @click="show_c(item.id)">
+            <strong v-html="item.bookname"></strong><br>
+            <span v-html="item.author"></span>
+        </div>
+    </div>
+</div>
+<script>
+
+    new Vue({
+        el:"#detail_root",
+        data:{
+            score:0,
+            book:[],
+            s1:"../static/pic/星星1.png",
+            s2:"../static/pic/星星2.png",
+            books:[],
+        },
+
+        //初始化
+        mounted:function () {
+            var params = new Object();
+            axios.get('getdetail' , {params:params})
+                .then(function (res) {
+                    var reg = new RegExp( '\"' , "g" )
+                    var reg2 = new RegExp( '\'' , "g" )
+                    var reg3 = new RegExp( ' ' , "g" )
+                    var str=res.data.replace("[","").replace("]","").replace(reg,"").replace(reg2,"").replace(reg3,"");
+                    var ls=str.split(",");
+                    this.book=ls;
+                    {#this.book.title=res.data.title;#}
+                    {#this.book.author=res.data.author;#}
+                    {#this.book.year=res.data.year;#}
+                    {#this.book.publisher=res.data.publisher;#}
+                    {#this.book.img=res.data.img;#}
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+            axios.get('getsim' , {params:params})
+                .then(function (res) {
+                    var reg = new RegExp( '\"' , "g" )
+                    var reg2 = new RegExp( '\'' , "g" )
+                    var str=res.data.replace("[[","").replace("]]","").replace("\'","").replace(reg,"").replace(reg2,"");
+                    var arr=str.split("], [");
+                    for ( var i = 0; i <arr.length; i++){
+                        var it = new Object();
+                        var ii=arr[i].split(",");
+                        it.id=ii[0];
+                        it.img=ii[7];
+                        it.bookname=ii[1];
+                        it.author="作者:  "+ii[2];
+                        {#it.num="已评价数:  "+ii[8];#}
+                        this.books.push(it);
+                    }
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+        },
+
+
+        methods:{
+            eva:function (x) {
+                if(this.score==x){
+                    x=0;
+                }
+                this.score=x;
+                for(i=1;i<=x;i++){
+                    document.getElementById('p'+i).src = this.s1;
+                }
+                for(i=x+1;i<=10;i++){
+                    document.getElementById('p'+i).src = this.s2;
+                }
+            },
+            addeva:function(){
+                var params = new Object();
+                params.bookid=this.book[0];
+                params.score=this.score;
+                axios.get('addeva' , {params:params})
+                    .then(function (res) {
+                        alert(res.data);
+                    }.bind(this))
+                    .catch(function (error) { // 请求失败处理
+                        alert(error);
+                    })
+            },
+            goback:function () {
+                window.history.back();
+            },
+            show_c:function (id) {
+                window.location.href="/detail?bookid="+id;
+            }
+        },
+
+
+    })
+</script>
+
+</body>
+</html>

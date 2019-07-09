@@ -1,0 +1,177 @@
+
+.prosum_box {
+    font-weight: bold;
+    width: 60%;
+    height: 75%;
+    border: solid 1px #ddd;
+    background: #fff;
+    overflow: hidden;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+.prosum_box .prosum_left {
+    /*margin: 20px;*/
+    overflow: hidden;
+    width: 40%;
+    float: left;
+    margin-left: 7%;
+}
+
+.prosum_box .prosum_left .big_img {
+    margin-top: 7%;
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+}
+.prosum_box .prosum_right .pros_price img {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+
+.prosum_box .prosum_right {
+    float: left;
+    width: 38%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.prosum_box .prosum_right .pros_title {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.hot {
+    font-size: 14px;
+    color: #ff4848;
+}
+
+.pros_other {
+    background: #eee;
+    font-size: 14px;
+    padding: 10px 0 10px 10px;
+    margin-top: 10px;
+}
+.pros_other p{
+    line-height: 24px;
+}
+.pros_price {
+    background: #eee;
+    margin-top: 40px;
+    padding: 10px 0 20px 10px;
+}
+.pros_price  .price strong{
+    color: #ff4848;
+    font-size: 26px;
+    font-weight: normal;
+}
+.collect {
+    margin-top: 30px;
+}
+.collect a {
+    font-size: 14px;
+    background: #ff4848;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.collect .already{
+    background: #ccc;
+}
+.collect a i{
+    font-size: 16px;
+    vertical-align: top;
+    margin-right: 3px;
+}
+.you_need_konw {
+    width: 1200px;
+    margin: 60px auto;
+}
+.you_need_konw span {
+    font-size: 16px;
+    border-bottom: 3px solid #ffc900;
+}
+.notice {
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    padding: 0px 48px;
+}
+.notice p {
+    line-height: 24px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.prosum_box button {
+    display: inline-block;
+    padding: 2px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px #999;
+}
+
+.prosum_box button:hover {background-color: #3e8e41}
+
+.prosum_box button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+
+.book_class{
+    font-family:Courier New;
+    font-size:1em;
+    /*background-color: #ffffff;*/
+    width: 150px;
+    height: 300px;
+    float:left;
+    /*border:1px solid #534545;*/
+    border-radius: 20px;
+    margin:1% 3.5%;
+    position:relative
+  }
+.book_class p{
+    font-family:"华文新魏";
+    font-size:1.5em;
+    color: #050505;
+    text-align:center;
+    line-height: 125px;
+  }
+.book_class img{
+    width: 150px;
+    height: 230px;
+    border-radius: 20px;
+    text-align:center;
+    line-height: 125px;
+    cursor: pointer;
+}
+.book_class strong{
+    text-align:left;
+    position:absolute;
+    left: 0px;
+    bottom:30px;
+    font-size: 0.8em;
+    color: #dc0000;
+}
+.book_class span{
+    text-align:left;
+    position:absolute;
+    top:280px;
+    left: 0px;
+    right: 30px;
+    font-size: 0.55em;
+    color: #000000;
+}

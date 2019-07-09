@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>搜索结果</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="../../static/css/include.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/index.css" media="screen" type="text/css" />
+
+</head>
+
+
+<body style="background-color: #dce7ee">
+
+
+<div style="z-index:999999;">
+    {% include 'module/head.html' %}
+    {% include 'module/left.html' %}
+    {% include 'module/right.html' %}
+</div>
+
+
+<div id="index_root"  style="z-index:1; margin-left: 15%; margin-right: 15%; ">
+    <br>
+    <span v-html="headtext"></span>&nbsp;的搜索结果共<span v-html="rlen"></span>条
+    <br>
+    <div>
+        <div v-for="(item,index) of books" class="index_class" >
+            <img :src="item.img" @click="show_c(item.id)">
+            <strong v-html="item.bookname"></strong><br>
+            <span v-html="item.author"></span>
+            <span2 v-html="item.num"></span2>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#index_root",
+        data: {
+            headtext:"headtext",
+            rlen:"",
+            books: [],
+        },
+        mounted:function () {
+            var params = new Object();
+            axios.get('getsearchresult' , {params:params})
+                .then(function (res) {
+                    jd=res.data;
+                    for (var key in jd) {
+                    　　var item = jd[key];
+                    　　var it = new Object();
+                        it.id=item["id"];
+                        it.bookname=item["title"].substring(0, 50);
+                        it.author=item["author"];
+                        it.year=item["year"];
+                        it.img=item["img"];
+                        it.publisher=item["publisher"];
+                        this.books.push(it);
+                    }
+                    this.rlen=this.books.length;
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                });
+            axios.get('getinputtext' , {params:params})
+                .then(function (res) {
+                    this.headtext=res.data;
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+        },
+        methods:{
+            show_c:function (id) {
+                window.location.href="/detail?bookid="+id;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

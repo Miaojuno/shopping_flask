@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/login.css" media="screen" type="text/css" />
+</head>
+<body>
+    <div class="wrap" id="login_root">
+        <div class="container">
+            <h1>Welcome</h1>
+
+                <input type="text" placeholder="账户" v-model="user_id"/>
+                <input type="password" placeholder="密码" v-model="user_pwd"/>
+                <button @click="lconfim()">确认</button>
+
+        </div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: "#login_root",
+            data :{
+                user_id: "",
+                user_pwd: ""
+            },
+            methods: {
+                lconfim : function() {
+                    var params = new Object();
+                    params.account = this.user_id;
+                    params.pwd=this.user_pwd;
+                    console.log(params);
+                    axios.get('checklogin' , {params:params})
+                        .then(function (res) {
+                            if (res.data=="success"){
+                                window.location.href="index";
+                            }
+                            else {
+                                alert(res.data)
+                            }
+
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            alert(error);
+                        })
+                },
+                register : function() {
+
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+    <style>
+        #mybottom{
+            position: fixed;
+            bottom: 0;
+            right: 10%;
+        }
+        #mybottom ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        #mybottom ul.pagination li {display: inline;}
+
+        #mybottom ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #mybottom ul.pagination li a.active {
+            background-color: #eee;
+            color: black;
+            border: 1px solid #ddd;
+        }
+
+        #mybottom ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+</style>
+</head>
+<body>
+
+    <div id="mybottom">
+
+        <ul class="pagination">
+            <li style="cursor: pointer;"><a @click="lastpage()">❮</a></li>
+            <li><a v-html="pagenum"></a></li>
+            <li style="cursor: pointer;"><a @click="nextpage()">❯</a></li>
+        </ul>
+    </div>
+
+<script>
+
+    new Vue({
+        el:"#mybottom",
+        data:{
+            inputpage:'',
+            pagenum:'',
+        },
+        mounted:function () {
+            var params = new Object();
+            axios.get('getpage' , {params:params})
+                .then(function (res) {
+                    this.pagenum=res.data;
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+        },
+        methods:{
+            lastpage:function () {
+                if(this.pagenum>1){
+                    page=this.pagenum-1;
+                    window.location.href="/allbook?page="+page;
+                }
+                else {
+                    alert("已经是第一页");
+                }
+            },
+            nextpage:function () {
+                page=this.pagenum+1;
+                window.location.href="/allbook?page="+page;
+            }
+        }
+    })
+</script>
+
+</body>

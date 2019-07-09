@@ -1,0 +1,132 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的评论</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="../../static/css/include.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/table.css" media="screen" type="text/css" />
+
+</head>
+
+
+<body style="background-color: #dce7ee">
+
+
+<div style="z-index:999999;">
+    {% include 'module/head.html' %}
+    {% include 'module/left.html' %}
+    {% include 'module/right.html' %}
+</div>
+
+
+<div id="myeva_root"  style="z-index:1; margin-left: 15%; margin-right: 15%; ">
+{#    <div class="finddiv">#}
+{#        &nbsp;&nbsp;&nbsp;&nbsp;#}
+{#        <input v-model="inputtext" type="text">#}
+{#        <button @click="gofind()"><span>搜索</span></button>#}
+{#        <br>#}
+{#        <br>#}
+{#    </div>#}
+{#    显示的表格    #}
+    <div style="width: 90%; margin-left: 1.5%" v-show="show">
+        <table class="altrowstable" width="100%">
+            <tr>
+                <th width="40%">书名</th>
+                <th width="35%">作者</th>
+                <th width="25%">我的评分</th>
+            </tr>
+        </table>
+        <div v-for="(item,index) of books" class="myeva_class" @click="show_c(item.bookid)" style="cursor: pointer;">
+            <table  class="altrowstable" id="alternatecolor" width="100%">
+                <tr v-if="index%2==0" class="oddrowcolor">
+                    <td width="40%"><span v-html="item.bookname"></span></td>
+                    <td width="35%"><span v-html="item.author"></span></td>
+                    <td width="25%">
+                        <span v-html="item.eva"></span>
+                        <img :src="item.eva>9 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>8 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>7 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>6 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>5 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>4 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>3 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>2 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>1 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>0 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                    </td>
+                </tr>
+                <tr v-if="index%2==1" class="evenrowcolor">
+                    <td width="40%"><span v-html="item.bookname"></span></td>
+                    <td width="35%"><span v-html="item.author"></span></td>
+                    <td width="25%">
+                        <span v-html="item.eva"></span>
+                        <img :src="item.eva>9 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>8 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>7 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>6 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>5 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>4 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>3 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>2 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>1 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                        <img :src="item.eva>0 ? s1 : s2" style="width: 13px;height: 13px; float:right;"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{#    缺失数据错误提示    #}
+    <div v-show="show2">
+        <h1 style="margin-left: 20%;margin-top: 10%;">你还没有评论过哎</h1>
+        <img src="../../static/pic/no.jpg" style="margin-left: 20%; height: 250px; width: 250px;"/>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#myeva_root",
+        data: {
+            show:false,
+            show2:false,
+            inputtext: "",
+            books: [],
+            s1:"../static/pic/星星1.png",
+            s2:"../static/pic/星星2.png",
+        },
+        mounted:function () {
+            var params = new Object();
+            console.log(params);
+            axios.get('getmyeva' , {params:params})
+                .then(function (res) {
+                    var evadata=res.data;
+                    for(var key in evadata){
+                        var it = new Object();
+                        it.bookid=key;
+                        it.eva=evadata[key][0];
+                        it.bookname=evadata[key][1];
+                        it.author=evadata[key][2];
+                        it.img=evadata[key][7];
+                        this.books.push(it);
+                    }
+                    if(this.books.length != 0){
+                        this.show=true;
+                    }
+                    else {
+                        this.show2=true;
+                    }
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+        },
+        methods:{
+            show_c:function (id) {
+                window.location.href="/detail?bookid="+id;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

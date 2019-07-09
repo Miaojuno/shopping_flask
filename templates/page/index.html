@@ -1,0 +1,80 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>热评top50</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="../../static/css/include.js"></script>
+    <link rel="stylesheet" href="../../static/css/head.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/index.css" media="screen" type="text/css" />
+
+</head>
+
+
+<body style="background-color: #dce7ee">
+
+
+<div style="z-index:999999;">
+    {% include 'module/head.html' %}
+    {% include 'module/left.html' %}
+    {% include 'module/right.html' %}
+</div>
+
+
+<div id="index_root"  style="z-index:1; margin-left: 15%; margin-right: 15%; ">
+    <p></p>
+    <img src="../../static/pic/皇冠.png" style="margin-left: 3%; margin-top: 1%; height: 30px; width: 30px;"/>
+    <spannum>热评第一</spannum>
+    <img src="../../static/pic/皇冠.png" style="margin-left: 9.5%; margin-top: 1%; height: 30px; width: 30px;"/>
+    <spannum>热评第二</spannum>
+    <img src="../../static/pic/皇冠.png" style="margin-left: 9.5%; margin-top: 1%; height: 30px; width: 30px;"/>
+    <spannum>热评第三</spannum>
+    <div>
+        <div v-for="(item,index) of books" class="index_class" >
+            <img :src="item.img" @click="show_c(item.id)">
+            <strong v-html="item.bookname"></strong><br>
+            <span v-html="item.author"></span>
+            <span2 v-html="item.num"></span2>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#index_root",
+        data: {
+            inputtext: "",
+            books: [],
+        },
+        mounted:function () {
+            var params = new Object();
+            axios.get('gethot' , {params:params})
+                .then(function (res) {
+                    var reg = new RegExp( '\"' , "g" )
+                    var reg2 = new RegExp( '\'' , "g" )
+                    var str=res.data.replace("[[","").replace("]]","").replace("\'","").replace(reg,"").replace(reg2,"");
+                    var arr=str.split("], [");
+                    for ( var i = 0; i <arr.length; i++){
+                        var it = new Object();
+                        var ii=arr[i].split(",");
+                        it.id=ii[0];
+                        it.img=ii[7];
+                        it.bookname=ii[1].substring(0, 50);
+                        it.author="作者:  "+ii[2];
+                        it.num="已评价数:  "+ii[8];
+                        this.books.push(it);
+                    }
+                }.bind(this))
+                .catch(function (error) { // 请求失败处理
+                    alert(error);
+                })
+        },
+        methods:{
+            show_c:function (id) {
+                window.location.href="/detail?bookid="+id;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

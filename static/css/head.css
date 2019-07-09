@@ -1,0 +1,108 @@
+html{
+  /*width:100%*/
+}
+body{
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  /*width:100%;*/
+
+}
+
+#myhead {
+  border: #050505 1px;
+  position:relative;
+  background-color: #4CAF50;
+  font-family:Courier New;
+  font-size: 1.1em;
+  color: #534545;
+  /*border-radius: 10px;*/
+  width: 100%;
+}
+.menu{
+    margin-top: 1%;
+    margin-left: 15%;
+    float:left;
+}
+#myhead ul {
+  list-style-type:none;
+  /*width: 100%;*/
+  /*margin-left: 21.5%;*/
+  padding:0;
+  overflow:hidden;
+  border-radius: 10px;
+}
+#myhead li {
+  float:left;
+
+}
+#myhead a:link,a:visited {
+  display:block;
+  width:150px;
+  border-radius: 10px;
+  font-weight:bold;
+  color:#FFFFFF;
+  background-color:#4CAF50;
+  text-align:center;
+  padding:4px;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+#myhead a:hover,a:active {
+  background-color:#abbd73;
+}
+
+/* return top */
+#btnTop {
+  /*display: none;*/
+    width: 80px;
+    height: 80px;
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  z-index: 99999999;
+  border: none;
+  outline: none;
+  /*background-color: #89cff0;*/
+  /*color: white;*/
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+/*#btnTop:hover {*/
+  /*background-color: #1E90FF;*/
+/*}*/
+.finddiv{
+    margin-top: 0.5%;
+    margin-right: 20%;
+    float:right;
+}
+.finddiv input{
+    height: 28px;
+    border-radius: 9px;
+}
+.finddiv button {
+    margin-top: 5px;
+    display: inline-block;
+    padding: 2px 15px;
+    font-size: 19px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    font-weight:bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: #3e8e41;
+    border-radius: 8px;
+    /*box-shadow: 0 5px #999;*/
+}
+
+
+.finddiv button:hover {background-color: #3e8e41}
+
+.finddiv button:active {
+    background-color: #3e8e41;
+    /*box-shadow: 0 5px #666;*/
+    transform: translateY(4px);
+}
